@@ -1,11 +1,13 @@
-
+import MainTitle from './Components/MainTitle/MainTitle'
+import Form from './Components/Form/Form'
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      App
-    </div>
+    <main className="container list-wrapper">
+      <MainTitle />
+      <Form />
+    </main>
   );
 }
 

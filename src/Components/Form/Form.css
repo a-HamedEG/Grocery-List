@@ -1,0 +1,45 @@
+form {
+    margin-top: 1.5rem;
+}
+
+input {
+    border: 0;
+    background-color: var(--secondary-clr);
+    font-size: 1rem;
+    font-weight: 400;
+    padding: .75rem 1.5rem;
+    width: 100%;
+    max-width: 370px;
+    border-radius: 5rem;
+}
+
+@media (max-width: 768px) {
+    input,
+    button {
+        font-size: .8rem;
+        padding: .5rem 1rem;
+    }
+
+    input {
+        width: 230px;
+    }
+  }
+
+input:active,
+input:focus {
+    outline: 0;
+}
+
+button {
+    color: var(--white-clr);
+    background-color: var(--cta-clr);
+    padding: .75rem 1.5rem;
+    border-radius: 5rem;
+    border: 0;
+    margin-left: -4rem;
+}
+
+button:hover {
+    background-color: var(--primary-clr);
+    cursor: pointer;
+}
