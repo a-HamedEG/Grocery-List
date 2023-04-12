@@ -8,8 +8,12 @@ const Item = ({ id, itemName, checked, handlechange}) => {
     <>
     <div className='flex task-wrapper'>
         <div>
+          {/* <div className='input-container'> */}
             <input type="checkBox" id='task' checked={checked} onChange={()=>handlechange(id)}/>
+          {/* </div> */}
+          <div className='task-container'>
             <label htmlFor="task">{ itemName }</label>
+          </div>
         </div>
         <div className='svg'>
           <FaTrashAlt
