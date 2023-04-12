@@ -1,32 +1,28 @@
+import { useState } from "react";
 import MainTitle from "./Components/MainTitle/MainTitle";
 import Form from "./Components/Form/Form";
 import Tasks from "./Components/Tasks/Tasks";
 import Item from "./Components/Item/Item";
 import "./App.css";
-import { useState } from "react";
 
 function App() {
-  const itemsData = [
-    {
-      id: 1,
-      name: "Bakery0",
-      checked: false,
-    },
-    {
-      id: 2,
-      name: "Bakery",
-      checked: true,
-    },
-  ];
-
   const [newItem, setNewItem] = useState("");
-  const [itemsArr, setItems] = useState(itemsData);
+  const [itemsArr, setItems] = useState(
+    JSON.parse(localStorage.getItem("itemsData")) || []
+  );
 
   const handlechange = (id) => {
     let newArr = itemsArr.map((item) =>
       item.id === id ? { ...item, checked: !item.checked } : item
     );
     setItems(newArr);
+    localStorage.setItem("itemsData", JSON.stringify(newArr));
+  };
+
+  const handleDelete = (id) => {
+    let newArr = itemsArr.filter((item) => item.id !== id);
+    setItems(newArr);
+    localStorage.setItem("itemsData", JSON.stringify(newArr));
   };
 
   const smScreen = window.innerWidth < 992 ? true : false;
@@ -43,44 +39,49 @@ function App() {
         itemName={item.name}
         checked={item.checked}
         handlechange={handlechange}
+        handleDelete={handleDelete}
       />
     ));
   } else {
-    leftSide = itemsArr.map((item, i) =>
-      item.id % 2 !== 0 ? (
+    leftSide = itemsArr
+      .filter((item) => item.id % 2 !== 0)
+      .map((item) => (
         <Item
           key={item.id}
           id={item.id}
           itemName={item.name}
           checked={item.checked}
           handlechange={handlechange}
+          handleDelete={handleDelete}
         />
-      ) : undefined
-    );
+      ));
 
-    rightSide = itemsArr.map((item) =>
-      item.id % 2 === 0 ? (
+    rightSide = itemsArr
+      .filter((item) => item.id % 2 === 0)
+      .map((item) => (
         <Item
           key={item.id}
           id={item.id}
           itemName={item.name}
           checked={item.checked}
           handlechange={handlechange}
+          handleDelete={handleDelete}
         />
-      ) : undefined
-    );
+      ));
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!newItem) return;
-    let addNewItem = {
-      id: itemsArr.length + 1,
+    const newArr = {
+      id: itemsArr ? itemsArr.length + 1 : 1,
       name: newItem,
       checked: false,
     };
 
-    setItems([...itemsArr, addNewItem]);
+    setItems([...itemsArr, newArr]);
+    localStorage.setItem("itemsData", JSON.stringify([...itemsArr, newArr]));
+    setNewItem("");
   };
 
   return (
@@ -91,12 +92,16 @@ function App() {
         newItem={newItem}
         setNewItem={setNewItem}
       />
-      <Tasks
-        smScreen={smScreen}
-        leftSide={smScreen ? "" : leftSide}
-        rightSide={smScreen ? "" : rightSide}
-        smScreenData={smScreenData}
-      />
+      {itemsArr.length > 0 ? (
+        <Tasks
+          smScreen={smScreen}
+          leftSide={smScreen ? "" : leftSide}
+          rightSide={smScreen ? "" : rightSide}
+          smScreenData={smScreenData}
+        />
+      ) : (
+        <h2>Your List is Empty</h2>
+      )}
     </main>
   );
 }
