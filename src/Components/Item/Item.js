@@ -6,15 +6,13 @@ const Item = ({ id, itemName, checked, handlechange, handleDelete }) => {
   return (
     <>
       <div className="flex task-wrapper">
-        <div>
-          {/* <div className='input-container'> */}
+        <div className="task-text">
           <input
             type="checkBox"
             id="task"
             checked={checked}
             onChange={() => handlechange(id)}
           />
-          {/* </div> */}
           <div className="task-container">
             <label htmlFor="task">{itemName}</label>
           </div>
