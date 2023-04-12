@@ -1,9 +1,9 @@
-import MainTitle from './Components/MainTitle/MainTitle'
-import Form from './Components/Form/Form'
-import Tasks from './Components/Tasks/Tasks'
-import Item from './Components/Item/Item'
-import './App.css';
-import { useState } from 'react';
+import MainTitle from "./Components/MainTitle/MainTitle";
+import Form from "./Components/Form/Form";
+import Tasks from "./Components/Tasks/Tasks";
+import Item from "./Components/Item/Item";
+import "./App.css";
+import { useState } from "react";
 
 function App() {
   const itemsData = [
@@ -19,9 +19,8 @@ function App() {
     },
   ];
 
-  const [newItem, setNewItem] = useState('')
+  const [newItem, setNewItem] = useState("");
   const [itemsArr, setItems] = useState(itemsData);
-
 
   const handlechange = (id) => {
     let newArr = itemsArr.map((item) =>
@@ -30,20 +29,14 @@ function App() {
     setItems(newArr);
   };
 
-  const leftSide = itemsArr.map((item, i) =>
-    item.id % 2 != 0 ? (
-      <Item
-        key={item.id}
-        id={item.id}
-        itemName={item.name}
-        checked={item.checked}
-        handlechange={handlechange}
-      />
-    ) : undefined
-  );
+  const smScreen = window.innerWidth < 992 ? true : false;
 
-  const rightSide = itemsArr.map((item) =>
-    item.id % 2 == 0 ? (
+  let smScreenData;
+  let leftSide;
+  let rightSide;
+
+  if (smScreen) {
+    smScreenData = itemsArr.map((item) => (
       <Item
         key={item.id}
         id={item.id}
@@ -51,32 +44,58 @@ function App() {
         checked={item.checked}
         handlechange={handlechange}
       />
-    ) : undefined
-  );
+    ));
+  } else {
+    leftSide = itemsArr.map((item, i) =>
+      item.id % 2 !== 0 ? (
+        <Item
+          key={item.id}
+          id={item.id}
+          itemName={item.name}
+          checked={item.checked}
+          handlechange={handlechange}
+        />
+      ) : undefined
+    );
+
+    rightSide = itemsArr.map((item) =>
+      item.id % 2 === 0 ? (
+        <Item
+          key={item.id}
+          id={item.id}
+          itemName={item.name}
+          checked={item.checked}
+          handlechange={handlechange}
+        />
+      ) : undefined
+    );
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!newItem) return
+    if (!newItem) return;
     let addNewItem = {
-      id: itemsArr.length + 1 ,
+      id: itemsArr.length + 1,
       name: newItem,
-      checked:false
-    }
+      checked: false,
+    };
 
-    setItems([...itemsArr, addNewItem])
-  }
+    setItems([...itemsArr, addNewItem]);
+  };
 
   return (
     <main className="container list-wrapper">
       <MainTitle />
-      <Form 
+      <Form
         handleSubmit={handleSubmit}
         newItem={newItem}
         setNewItem={setNewItem}
-        />
-      <Tasks 
-        leftSide={leftSide}
-        rightSide={rightSide}
+      />
+      <Tasks
+        smScreen={smScreen}
+        leftSide={smScreen ? "" : leftSide}
+        rightSide={smScreen ? "" : rightSide}
+        smScreenData={smScreenData}
       />
     </main>
   );

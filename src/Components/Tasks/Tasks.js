@@ -1,10 +1,16 @@
 import "./Tasks.css";
 
-const Tasks = ({ leftSide, rightSide }) => {
+const Tasks = ({ smScreen, leftSide, rightSide, smScreenData }) => {
   return (
-    <div className="tasks">
-      <div>{leftSide}</div>
-      <div className="right-side">{rightSide}</div>
+    <div className={`${!smScreen && 'tasks'}`}>
+      {
+        !smScreen ? (
+          <>
+            <div>{leftSide}</div>
+            <div className="right-side">{rightSide}</div>
+          </>
+        ) : <div>{smScreenData}</div>
+      }
     </div>
   );
 };

@@ -28,6 +28,12 @@ input[type=checkbox] {
     border: 2px solid var(--accent-clr);
 }
 
+@media (max-width: 768px) {
+    input[type=checkbox] {
+        --width: 20px;
+    }
+  }
+
 input[type=checkbox]:checked {
     background-color: var(--cta-clr);
     border: 2px solid var(--cta-clr);
@@ -47,6 +53,12 @@ input[type=checkbox]:checked::before {
     transform: translate(-50%, -50%);
 }
 
+@media (max-width: 768px) {
+    input[type=checkbox]:checked::before {
+        font-size: 16px;
+    }
+  }
+
 label:hover,
 input[type=checkbox]:hover {
     cursor: pointer;
@@ -56,6 +68,12 @@ input[type=checkbox]:hover {
 label {
     font-size: 1.1rem;
 }
+
+@media (max-width: 768px) {
+    label {
+        font-size: 1rem;
+    }
+  }
 
 .task-container {
     margin-left: 2.2rem;
@@ -71,6 +89,12 @@ label {
     font-size: 1.2rem;
     z-index: 1;
 }
+
+@media (max-width: 768px) {
+    .task-wrapper .svg {
+        font-size: 1rem;
+    }
+  }
 
 .task-wrapper .svg svg {
     position: relative;
