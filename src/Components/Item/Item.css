@@ -1,0 +1,97 @@
+.task-wrapper {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.task-wrapper .svg {
+    position: relative;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 1;
+}
+
+.task-wrapper .svg svg {
+    position: relative;
+    z-index: 2;
+    color: var(--accent-clr);
+}
+
+.task-wrapper .svg::before {
+    display: none;
+    z-index: 1;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    background-color: var(--secondary-clr);
+    transition: all 200ms ease-in-out;
+  }
+  
+
+.task-wrapper .svg:hover::before {
+    display: block;
+}
+
+.task-wrapper .svg:hover svg {
+    animation: wobble 1s ease;
+}
+
+@keyframes wobble {
+0% { transform: translateX(0%); }
+15% { transform: translateX(-25%) rotate(-5deg); }
+30% { transform: translateX(20%) rotate(3deg); }
+45% { transform: translateX(-15%) rotate(-3deg); }
+60% { transform: translateX(10%) rotate(2deg); }
+75% { transform: translateX(-5%) rotate(-1deg); }
+100% { transform: translateX(0%); }
+}
+
+input[type=checkbox] {
+    --width: 30px;
+    width: var(--width);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    aspect-ratio: 1/1;
+    border: 2px solid var(--accent-clr);
+}
+
+input[type=checkbox]:checked {
+    background-color: var(--cta-clr);
+    border: 2px solid var(--cta-clr);
+}
+
+input[type=checkbox]:checked + label {
+    text-decoration: line-through;
+}
+
+input[type=checkbox]:checked::before {
+    content: "\2713";
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+label:hover,
+input[type=checkbox]:hover {
+    cursor: pointer;
+}
+
+
+label {
+    margin-left: 2.8rem;
+    font-size: 1.1rem;
+}

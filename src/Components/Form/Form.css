@@ -1,8 +1,9 @@
 form {
     margin-top: 1.5rem;
+    margin-bottom: 2.2rem;
 }
 
-input {
+.add-item {
     border: 0;
     background-color: var(--secondary-clr);
     font-size: 1rem;
@@ -14,32 +15,33 @@ input {
 }
 
 @media (max-width: 768px) {
-    input,
-    button {
+    .add-item,
+    .add-item-btn {
         font-size: .8rem;
         padding: .5rem 1rem;
     }
 
-    input {
+    .add-item {
         width: 230px;
     }
   }
 
-input:active,
-input:focus {
+.add-item:active,
+.add-item:focus {
     outline: 0;
 }
 
-button {
+.add-item-btn {
     color: var(--white-clr);
     background-color: var(--cta-clr);
     padding: .75rem 1.5rem;
     border-radius: 5rem;
     border: 0;
     margin-left: -4rem;
+    transition: all 150ms ease-in-out;
 }
 
-button:hover {
+.add-item-btn:hover {
     background-color: var(--primary-clr);
     cursor: pointer;
 }

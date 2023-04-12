@@ -1,10 +1,10 @@
 import './Form.css'
 
-const Form = () => {
+const Form = ({ setNewItem, handleSubmit, newItem }) => {
   return (
-    <form className='flex'>
-      <input type="text" placeholder="Add item to buy"/>
-      <button>Add</button>
+    <form className='flex' onSubmit={handleSubmit}>
+      <input type="text" className='add-item' placeholder="Add item to buy" onChange={(e)=>setNewItem(e.target.value)} value={newItem}/>
+      <button className='add-item-btn'>Add</button>
     </form>
   )
 }
