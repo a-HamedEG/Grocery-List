@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { v4 as uuid } from 'uuid';
 import MainTitle from "./Components/MainTitle/MainTitle";
 import Form from "./Components/Form/Form";
 import Tasks from "./Components/Tasks/Tasks";
@@ -10,6 +11,14 @@ function App() {
   const [itemsArr, setItems] = useState(
     JSON.parse(localStorage.getItem("itemsData")) || []
   );
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handlechange = (id) => {
     let newArr = itemsArr.map((item) =>
@@ -25,7 +34,7 @@ function App() {
     localStorage.setItem("itemsData", JSON.stringify(newArr));
   };
 
-  const smScreen = window.innerWidth < 992 ? true : false;
+  const smScreen = windowWidth < 992 ? true : false;
 
   let smScreenData;
   let leftSide;
@@ -44,7 +53,7 @@ function App() {
     ));
   } else {
     leftSide = itemsArr
-      .filter((item) => item.id % 2 !== 0)
+      .filter((item,indx) => indx % 2 === 0)
       .map((item) => (
         <Item
           key={item.id}
@@ -57,7 +66,7 @@ function App() {
       ));
 
     rightSide = itemsArr
-      .filter((item) => item.id % 2 === 0)
+      .filter((item, indx) => indx % 2 !== 0)
       .map((item) => (
         <Item
           key={item.id}
@@ -74,7 +83,7 @@ function App() {
     e.preventDefault();
     if (!newItem) return;
     const newArr = {
-      id: itemsArr ? itemsArr.length + 1 : 1,
+      id: uuid(),
       name: newItem,
       checked: false,
     };
